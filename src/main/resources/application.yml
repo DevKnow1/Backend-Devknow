@@ -1,0 +1,65 @@
+spring:
+  application:
+    name: devknow-backend
+  datasource:
+    url: ${DB_URL:jdbc:postgresql://localhost:5432/devknow}
+    username: ${DB_USER:devknow}
+    password: ${DB_PASSWORD:devknow}
+  jpa:
+    open-in-view: false
+    hibernate:
+      ddl-auto: none
+  flyway:
+    enabled: true
+    placeholders:
+      embeddingDimension: ${EMBEDDING_DIMENSION:768}
+  servlet:
+    multipart:
+      max-file-size: 12MB      # tope técnico; el límite de negocio es devknow.ingestion.max-file-size
+      max-request-size: 60MB
+
+server:
+  port: ${PORT:8080}
+  error:
+    include-message: never
+    include-stacktrace: never
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health
+
+devknow:
+  jwt:
+    # RNF-07: definir SIEMPRE por variable de entorno en despliegue (mínimo 32 caracteres)
+    secret: ${JWT_SECRET:dev-only-secret-change-me-please-0123456789}
+    expiration: ${JWT_EXPIRATION:8h}
+  storage:
+    dir: ${STORAGE_DIR:./storage}
+  cors:
+    allowed-origins: ${CORS_ORIGINS:http://localhost:5173,http://localhost:3000}
+  admin:
+    email: ${ADMIN_EMAIL:admin@devknow.local}
+    password: ${ADMIN_PASSWORD:ChangeMe123}
+    full-name: ${ADMIN_NAME:Administrador}
+  ingestion:
+    max-file-size: ${MAX_FILE_SIZE:10MB}     # RF-07
+    chunk-size: ${CHUNK_SIZE:1000}           # RF-09 (caracteres)
+    chunk-overlap: ${CHUNK_OVERLAP:150}
+    embedding-batch-size: ${EMBEDDING_BATCH_SIZE:16}
+  rag:
+    top-k: ${RAG_TOP_K:5}
+    min-score: ${RAG_MIN_SCORE:0.30}         # RF-17: umbral de relevancia (similitud coseno)
+    max-context-chars: ${RAG_MAX_CONTEXT_CHARS:6000}   # RNF-03
+    history-messages: ${RAG_HISTORY_MESSAGES:6}        # RF-23
+  ai:
+    provider: ${AI_PROVIDER:mock}            # mock | openai-compatible  (RNF-22)
+    base-url: ${AI_BASE_URL:http://localhost:11434/v1}
+    api-key: ${AI_API_KEY:}
+    embedding-model: ${AI_EMBEDDING_MODEL:nomic-embed-text}
+    chat-model: ${AI_CHAT_MODEL:llama3.1}
+    embedding-dimension: ${EMBEDDING_DIMENSION:768}
+    timeout: ${AI_TIMEOUT:30s}               # RNF-16
+    max-retries: ${AI_MAX_RETRIES:2}         # RNF-27: reintentos limitados
+    temperature: ${AI_TEMPERATURE:0.2}
