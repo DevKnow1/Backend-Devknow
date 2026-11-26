@@ -16,5 +16,6 @@ public record AppProperties(Jwt jwt, Storage storage, Cors cors, Admin admin,
     public record Ingestion(DataSize maxFileSize, int chunkSize, int chunkOverlap, int embeddingBatchSize) {}
     public record Rag(int topK, double minScore, int maxContextChars, int historyMessages) {}
     public record Ai(String provider, String baseUrl, String apiKey, String embeddingModel, String chatModel,
-                     int embeddingDimension, Duration timeout, int maxRetries, double temperature) {}
+                     int embeddingDimension, boolean sendDimensions, Duration timeout, int maxRetries,
+                     double temperature) {}
 }

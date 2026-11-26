@@ -47,6 +47,7 @@ public class OpenAiCompatibleClient implements EmbeddingClient, LlmClient {
         Map<String, Object> body = new LinkedHashMap<>();
         body.put("model", cfg.embeddingModel());
         body.put("input", texts);
+        if (cfg.sendDimensions()) body.put("dimensions", cfg.embeddingDimension());
         JsonNode json = post("/embeddings", body);
         JsonNode data = json == null ? null : json.get("data");
         if (data == null || !data.isArray() || data.size() != texts.size()) {
