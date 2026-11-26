@@ -34,6 +34,7 @@ services:
       AI_EMBEDDING_MODEL: ${AI_EMBEDDING_MODEL:-nomic-embed-text}
       AI_CHAT_MODEL: ${AI_CHAT_MODEL:-llama3.1}
       EMBEDDING_DIMENSION: ${EMBEDDING_DIMENSION:-768}
+      AI_SEND_DIMENSIONS: ${AI_SEND_DIMENSIONS:-false}
       STORAGE_DIR: /app/storage
     extra_hosts:
       - "host.docker.internal:host-gateway"

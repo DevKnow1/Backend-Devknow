@@ -1,7 +1,9 @@
 target/
 storage/
 .env
+temp_auto_push.bat
 .idea/
 *.iml
-.vscode/
 .github/modernize/
+.gitignore
+branch_structure.json
