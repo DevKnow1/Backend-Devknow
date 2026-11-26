@@ -60,6 +60,7 @@ devknow:
     embedding-model: ${AI_EMBEDDING_MODEL:nomic-embed-text}
     chat-model: ${AI_CHAT_MODEL:llama3.1}
     embedding-dimension: ${EMBEDDING_DIMENSION:768}
+    send-dimensions: ${AI_SEND_DIMENSIONS:false}  # true: pide al proveedor vectores de embedding-dimension (Gemini)
     timeout: ${AI_TIMEOUT:30s}               # RNF-16
     max-retries: ${AI_MAX_RETRIES:2}         # RNF-27: reintentos limitados
     temperature: ${AI_TEMPERATURE:0.2}
